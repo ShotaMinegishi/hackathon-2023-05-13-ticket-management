@@ -1,0 +1,20 @@
+version: '3.9'
+services:
+#  frontend:
+
+#  backend:
+
+  db:
+    container_name: task-db
+    build: ./db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: task
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user
+    volumes: 
+      - db-data:/value/lib/MYSQL_DATABASE
+      - .db/sql:/docker-entrypoint-initdb.data
+
+volumes:
+  db-data: 
