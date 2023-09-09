@@ -2,7 +2,22 @@ version: '3.9'
 services:
 #  frontend:
 
-#  backend:
+  backend:
+    container_name: task-backend
+    build: ./backend
+    environment:
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_DATABASE: task
+      DB_USERNAME: user
+      DB_PASSWORD: user
+    volumes:
+      - ./backend:/var/www/html
+    ports:
+      - 5173:5173
+    depends_on:
+      - db
 
   db:
     container_name: task-db
@@ -12,7 +27,7 @@ services:
       MYSQL_DATABASE: task
       MYSQL_USER: user
       MYSQL_PASSWORD: user
-    volumes: 
+    volumes:
       - db-data:/value/lib/MYSQL_DATABASE
       - .db/sql:/docker-entrypoint-initdb.data
 
