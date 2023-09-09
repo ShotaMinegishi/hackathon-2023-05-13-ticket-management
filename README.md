@@ -39,8 +39,11 @@ WindowsPCの方はWSLを利用してUbuntuで環境構築を行ってくださ�
   - WSL（Windowsのみ）
     - インストール手順：https://www.kagoya.jp/howto/it-glossary/develop/wsl2_linux/
   - git
+    - インストール手順：ググってみてください…。
   - docker
+    - インストール手順(WSL環境)：https://docs.docker.com/desktop/wsl/
   - docker-compose
+    - インストール手順：ググってみてください…。
 
 ## アプリケーションの立ち上げまで
 
@@ -51,6 +54,7 @@ WindowsPCの方はWSLを利用してUbuntuで環境構築を行ってくださ�
 ```
 cd 作業ディレクトリ（※）
 git clone https://github.com/ShotaMinegishi/hackathon-2023-05-13-ticket-management.git
+cd hackathon-2023-09-task-management
 ```
 
 ※WSLの方は`/mnt/c`以下のどこかを作業ディレクトリにするとよいと思います。WSLの`/mnt/c` = Windows上の`C:\`なので、Windows側から普段利用しているテキストエディタを使って開発することが出来ます。
