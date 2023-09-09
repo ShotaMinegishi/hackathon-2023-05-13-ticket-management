@@ -1,24 +1,54 @@
 # hackathon-2023-05-13-ticket-management
 
+# 開発ドキュメント
+
+  - 画面イメージ(figma)
+    - https://www.figma.com/file/EUBLOB2SSgbTxeLG4smd1Z/%E3%82%BF%E3%82%B9%E3%82%AF%E7%AE%A1%E7%90%86%E3%82%A2%E3%83%97%E3%83%AA?type=design&node-id=0-1&mode=design&t=GNS9VmfjQRqEVDA0-0
+  - 設計メモ（googleスプレッドシート)
+    - https://docs.google.com/spreadsheets/d/1EWXh1RvuEcLJTJB4EBGAwSC7eh3O-boaBuEZHcr-PoQ/edit#gid=0
+
 # 環境について
 ## はじめに
-構築時のローカル環境の各バージョンを記載します。
 
-下記と同一でなくても大丈夫だとは思いますが、メジャーバージョンくらいは合わせておくとよいかもしれません。
+以下の順番で作業を行ってください。
 
-皆さんのPCは他の用途でも使っていると思いますので、無理のない範囲でバージョンを合わせることを検討してみてください。
+1. WSL2のインストールを行う（Windowsのみ）
 
-WindowsPCの方はWSLを利用してUbuntuで環境構築を行ってください。
+2. git,docker,docker-composeのインストール（※）
 
-  - OS
+3. gitリポジトリをcloneする
+
+4. dockerイメージやコンテナの構築、立ち上げを行う
+
+5. 動作確認
+
+※インストール済みの方は手順を飛ばしてください。古いバージョンを利用している方はアップデートしたほうがいいかもしれません。
+
+## WSL2のインストール（Windowsのみ）
+
+以下の手順でインストールしてください。Windowsの方のみが対象です。
+
+- https://www.kagoya.jp/howto/it-glossary/develop/wsl2_linux/
+
+環境構築時のバージョンは以下の通りです。後続の環境構築がうまくいかない場合はバージョン差異の影響が無いか確認してみてください
+
     ```
-    lsb_release -a
+    $ lsb_release -a
     No LSB modules are available.
     Distributor ID: Ubuntu
     Description:    Ubuntu 22.04.2 LTS
     Release:        22.04
     Codename:       jammy
     ```
+
+## git,docker,docker-composeのインストール
+
+git,docker,docker-composeをインストールします。参考手順は無いです。ググって適宜インストールしてください。
+
+Windowsの方はWSLのubuntuでインストールを行ってください。既にインストール済みの方は手順を飛ばしてください。
+
+環境構築時のバージョンは以下の通りです。後続の環境構築がうまくいかない場合はバージョン差異の影響が無いか確認してみてください
+
  - git
     ```
     $ git --version
@@ -35,21 +65,9 @@ WindowsPCの方はWSLを利用してUbuntuで環境構築を行ってくださ�
     docker-compose version v2.4.1
     ```
 
-## インストール
-  - WSL（Windowsのみ）
-    - インストール手順：https://www.kagoya.jp/howto/it-glossary/develop/wsl2_linux/
-  - git
-    - インストール手順：ググってみてください…。
-  - docker
-    - インストール手順(WSL環境)：https://docs.docker.com/desktop/wsl/
-  - docker-compose
-    - インストール手順：ググってみてください…。
+## gitリポジトリをcloneする
 
-## アプリケーションの立ち上げまで
-
-すみません、DBサーバーしか構築できていないです…。
-
-`docker compose up`が通るところまでしか確認できていないので、不備があるかもしれません。
+gitリポジトリをcloneします。これ以降、Windowsの方はWSLのubuntuで操作を行ってください。
 
 ```
 cd 作業ディレクトリ（※）
@@ -59,6 +77,13 @@ cd hackathon-2023-09-task-management
 
 ※WSLの方は`/mnt/c`以下のどこかを作業ディレクトリにするとよいと思います。WSLの`/mnt/c` = Windows上の`C:\`なので、Windows側から普段利用しているテキストエディタを使って開発することが出来ます。
 
+## dockerイメージやコンテナの構築、立ち上げを行う
+
+すみません、DBサーバーしか構築できていないです…。
+
+`docker compose up`が通るところまでしか確認できていないので、不備があるかもしれません。
+
+以下の手順を実行してdockerコンテナ構築、立ち上げを行ってください。
 
 ```
 # docker image構築
@@ -66,10 +91,3 @@ docker compose build
 # docker container作成
 docker compose up
 ```
-
-# 開発ドキュメント
-
-  - 画面イメージ(figma)
-    - https://www.figma.com/file/EUBLOB2SSgbTxeLG4smd1Z/%E3%82%BF%E3%82%B9%E3%82%AF%E7%AE%A1%E7%90%86%E3%82%A2%E3%83%97%E3%83%AA?type=design&node-id=0-1&mode=design&t=GNS9VmfjQRqEVDA0-0
-  - 設計メモ（googleスプレッドシート)
-    - https://docs.google.com/spreadsheets/d/1EWXh1RvuEcLJTJB4EBGAwSC7eh3O-boaBuEZHcr-PoQ/edit#gid=0
