@@ -3,22 +3,6 @@
 #app {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
-
-  font-weight: normal;
-}
-
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-}
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
 }
 
 @media (min-width: 1024px) {
@@ -32,4 +16,242 @@ a,
     grid-template-columns: 1fr 1fr;
     padding: 0 2rem;
   }
+}
+
+/* header */
+.bell {
+  width: 25px;
+  aspect-ratio: 1/1;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.bell.alert::after {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  background: #F96060;
+  position: absolute;
+  top: -6px;
+  right: -6px;
+}
+
+/* date */
+.date {
+  font-size: 24px;
+  color: var(--color-main);
+  margin-top: 50px;
+}
+
+.date:first-of-type {
+  margin-top: 0;
+}
+
+.date span {
+  display: inline-block;
+  font-weight: 500;
+  font-size: 16px;
+  margin-right: 0.8em;
+}
+
+/* list */
+.task-item {
+  border: 1px solid #000;
+  border-radius: 10px;
+  padding: 25px 15px;
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.check {
+  display: inline-block;
+  width: 35px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  background: #cbcbcb;
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-right: 1.5em;
+}
+
+.check::before {
+  content: "";
+  display: inline-block;
+  width: 25px;
+  aspect-ratio: 1/1;
+  background: url("./check.svg") no-repeat center/contain;
+}
+
+.check.checked {
+  background: var(--color-main);
+}
+
+.task-item p {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.task-item .inner {
+  width: 100%;
+}
+
+.task-item .bottom {
+  position: relative;
+  margin-top: 1.5em;
+}
+
+.task-item .time {
+  opacity: 0.7;
+}
+
+.task-item .edit {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+/* プラスボタン */
+.btn-plus {
+  display: inline-block;
+  width: 50px;
+  aspect-ratio: 1/1;
+  border: none;
+  border-radius: 50%;
+  right: 15px;
+  background: var(--color-main);
+  display: grid;
+  place-content: center;
+  position: fixed;
+  bottom: 15px;
+  z-index: 90;
+}
+
+.btn-plus::before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  aspect-ratio: 1/1;
+  background: url("./plus.svg") no-repeat center/contain;
+}
+
+/* モーダル */
+.modal {
+  width: 100%;
+  padding: 30px 5% 50px;
+  background: #fff;
+  position: fixed;
+  bottom: 0;
+  z-index: 100;
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.5), inset 0px 3px 6px -2px rgba(0, 0, 0, 0.2);
+  border-radius: 15px 15px 0 0;
+  transform: translateY(100%);
+  transition: 0.3s;
+}
+
+.modal.open {
+  transform: translateY(0);
+}
+
+.modal label {
+  /* display: flex;
+  align-items: flex-start;
+  justify-content: space-between; */
+  display: block;
+  max-width: 500px;
+}
+
+.modal label+label {
+  margin-top: 20px;
+}
+
+.modal label p {
+  margin-bottom: 0.5em;
+}
+
+/* タスク入力 */
+label#task {
+  margin-bottom: 40px;
+}
+
+label#task input {
+  font-size: 22px;
+}
+
+/* アイコン */
+.modal .icon {
+  display: inline-block;
+  width: 28px;
+  aspect-ratio: 1/1;
+  background: no-repeat center/contain;
+  flex-shrink: 0;
+  margin-right: 15px;
+  margin-top: 9px;
+}
+
+.modal #limit .icon {
+  background-image: url("./calender.svg");
+}
+
+.modal #startTime .icon,
+.modal #endTime .icon {
+  background-image: url("./time.svg");
+}
+
+.modal #desc .icon {
+  background-image: url("./pencil.svg");
+}
+
+/* 閉じるボタン */
+.btn-close {
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+  width: 28px;
+  aspect-ratio: 1/1;
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.btn-close::before,
+.btn-close::after {
+  content: "";
+  display: inline-block;
+  width: 2px;
+  height: 100%;
+  background: #000;
+  position: absolute;
+  top: 0;
+}
+
+.btn-close::before {
+  transform: rotate(45deg);
+}
+
+.btn-close::after {
+  transform: rotate(-45deg);
+}
+
+/* タスク追加ボタン */
+.btn-add {
+  display: block;
+  width: 100%;
+  max-width: 500px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 30px;
+  color: #fff;
+  background: var(--color-main);
+  text-align: center;
+  padding: 1em;
+  border: none;
+  margin-top: 30px;
 }
