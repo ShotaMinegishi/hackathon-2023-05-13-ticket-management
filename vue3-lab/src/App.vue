@@ -1,10 +1,21 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue';
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView } from 'vue-router';
 
-const modalDialog = ref(null);
+const modalDialog = ref<HTMLElement | null>(null);
 
-// タスクを追加する関数
+// タスク情報を管理するリアクティブ変数
+const newTask = ref({
+   name: '',
+   deadline: '',
+   startTime: '',
+   endTime: '',
+   details: ''
+});
+
+const taskList = ref<string[]>([]);
+
+// タスクを追加
 const addTask = () => {
    if (newTask.value.name) {
       taskList.value.push({ ...newTask.value });
@@ -21,12 +32,12 @@ const addTask = () => {
    }
 };
 
-// タスクを削除する関数
+// タスクを削除
 const removeTask = (index) => {
    taskList.value.splice(index, 1);
 };
 
-// モーダル開閉の関数
+// モーダル開閉
 const openModal = () => {
    if (modalDialog.value) {
       modalDialog.value.classList.add('open');
@@ -38,25 +49,65 @@ const closeModal = () => {
       modalDialog.value.classList.remove('open');
    }
 };
+
+// 編集
+const isEditing = ref(false);
+// interface Task {
+//   name: string;
+//   deadline: string;
+//   startTime: string;
+//   endTime: string;
+//   details: string;
+// }
+const editedTask ="";
+// const editedTask = reactive<Task>({
+//    name: '',
+//    deadline: '',
+//    startTime: '',
+//    endTime: '',
+
+
+
+
+
+//    details: ''
+// });
+
+const editTask = (index: number) => {
+   editedTask = taskList.value[index].name;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   isEditing.value = true;
+};
+
+
+
 </script>
 
 <template>
-  <header>
-    <nav>
-      <h1><router-link to="/">TASK MANAGER</router-link></h1>
-      <div class="bell alert">
-        <img alt="通知" src="@/assets/bell.svg" width="25" height="25">
-      </div>
-    </nav>
-
-    <div class="wrapper">
-       <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+   <header>
+      <nav>
+         <h1><router-link to="/">TASK MANAGER</router-link></h1>
+         <div class="bell alert">
+            <img alt="通知" src="@/assets/bell.svg" width="25" height="25">
+         </div>
       </nav>
-    </div>
-  </header>
-  <main>
+   </header>
+
+   <main>
       <h2 class="date"><span>2023</span>09/09</h2>
       <ul>
          <li class="task-item">
@@ -79,16 +130,6 @@ const closeModal = () => {
                </div>
             </div>
          </li>
-         <li class="task-item">
-            <span class="check"></span>
-            <div class="inner">
-               <p>ここにタスクが入ります。ここにタスクが入ります。ここにタスクが入ります。</p>
-               <div class="bottom">
-                  <span class="time">8:00 - 11:00</span>
-                  <button class="edit">編集</button>
-               </div>
-            </div>
-         </li>
       </ul>
       <h2 class="date"><span>2023</span>09/15</h2>
       <ul id="task">
@@ -96,11 +137,12 @@ const closeModal = () => {
             <span class="check"></span>
             <div class="inner">
                <p>{{ task.name }}</p>
+               <input v-model="task.name">
                <div class="bottom">
                   <div>{{ task.deadline }}</div>
                   <div class="time">{{ task.startTime }} - {{ task.endTime }}</div>
-                  <!-- <button class="edit">編集</button> -->
-                  <button @click="removeTask(index)" class="edit">削除</button>
+                  <!-- <button @click="removeTask(index)" class="edit">削除</button> -->
+                  <button @click="editTask(index)" class="edit">編集</button>
                </div>
             </div>
          </li>
@@ -135,7 +177,17 @@ const closeModal = () => {
       </label>
       <button class="btn-add" @click="addTask">タスクを追加</button>
    </div>
-  <RouterView />
+
+   <!-- タスク編集モーダル -->
+   <div>
+      <h2>タスクを編集</h2>
+      <input v-model="editedTask">
+      <!-- <input v-model="editedTask.deadline" /> -->
+      <!-- <input v-model="editedTask.details" /> -->
+      <!-- <button @click="saveEditedTask">保存</button> -->
+      <!-- <button @click="cancelEdit">キャンセル</button> -->
+   </div>
+   <RouterView />
 </template>
 
 
