@@ -4,6 +4,7 @@ FROM node:latest
 WORKDIR /app
 COPY ./vue-project/package*.json ./
 
+RUN npm install
 
 COPY . .
 
