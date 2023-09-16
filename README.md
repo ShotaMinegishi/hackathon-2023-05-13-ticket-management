@@ -91,3 +91,26 @@ docker compose build
 # docker container作成
 docker compose up
 ```
+
+
+エラー状況
+```
+# docker compose up を実行すると、frontendサーバにてエラー。
+task-frontend  | npm ERR! code ENOENT
+task-frontend  | npm ERR! syscall open
+task-frontend  | npm ERR! path /app/package.json
+task-frontend  | npm ERR! errno -2
+task-frontend  | npm ERR! enoent Could not read package.json: Error: ENOENT: no such file or directory, open '/app/package.json'
+task-frontend  | npm ERR! enoent This is related to npm not being able to find a file.
+task-frontend  | npm ERR! enoent
+task-frontend  |
+task-frontend  | npm ERR! A complete log of this run can be found in: /root/.npm/_logs/2023-09-16T00_55_30_236Z-debug-0.log
+```
+
+`no such file or directory, open '/app/package.json'`と言われており、frontendコンテナがpackage.jsonを見つけられていない模様。
+
+frontend/dockerfileに記載している`COPY ./vue-project/package*.json ./`あたりがおかしいと思われます。
+
+作業状況をまともに引き継げないので、トラブルシュートするより、frontendのみ一から構築し直したほうが早いかもしれません…。
+
+スミマセンがよろしくお願いします。

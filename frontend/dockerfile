@@ -1,0 +1,10 @@
+# Dockerfile
+FROM node:latest
+
+WORKDIR /app
+COPY ./vue-project/package*.json ./
+
+
+COPY . .
+
+CMD ["npm", "run", "serve"]
